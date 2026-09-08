@@ -49,3 +49,8 @@ Make fast and memory efficient RAG that can be deployed on different hardware
    Keep the N samples with the highest score.
 
 8. Return the top N samples.
+
+## TODO
+
+- [ ] implement optimalized math
+  - [ ] Benchmark different versions 

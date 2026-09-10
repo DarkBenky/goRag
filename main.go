@@ -9,11 +9,10 @@ import (
 	_ "modernc.org/sqlite"
 )
 
-// TODO: move to .env
-const groupCount = 8192
-const vecSize = 1024
-const memoryLimit = 4 * 1024 * 1024 * 1024 // 4GB
-const MODE = LOAD
+var groupCount = 8192
+var vecSize = 1024
+var memoryLimit = 4 * 1024 * 1024 * 1024
+var MODE = LOAD
 
 var db *sql.DB
 
@@ -161,8 +160,14 @@ func main() {
 		panic(err)
 	}
 
+	cfg := loadConfig(".env")
+	groupCount = cfg.GroupCount
+	vecSize = cfg.VecSize
+	memoryLimit = cfg.MemoryLimit
+	MODE = cfg.Mode
+
 	if MODE == LOAD {
-		r := &Rag{}
+		r := &Rag{memoryLimit: memoryLimit}
 		r.createGroups()
 	}
 }
